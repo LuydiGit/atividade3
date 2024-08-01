@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Moedas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        input, select, button {
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Conversor de Moedas</h1>
+
+<label for="amount">Valor:</label>
+<input type="number" id="amount" placeholder="Digite o valor">
+
+<label for="fromCurrency">De:</label>
+<select id="fromCurrency">
+    <option value="USD">Dólar Americano (USD)</option>
+    <option value="BRL">Real Brasileiro (BRL)</option>
+    <option value="EUR">Euro (EUR)</option>
+</select>
+
+<label for="toCurrency">Para:</label>
+<select id="toCurrency">
+    <option value="USD">Dólar Americano (USD)</option>
+    <option value="BRL">Real Brasileiro (BRL)</option>
+    <option value="EUR">Euro (EUR)</option>
+</select>
+
+<button onclick="convert()">Converter</button>
+
+<h2 id="result"></h2>
+
+<script>
+// Variáveis com taxas de câmbio fixas
+var USD_BRL = 5.25;
+var BRL_USD = 1 / USD_BRL;
+var USD_EUR = 0.85;
+var EUR_USD = 1 / USD_EUR;
+var BRL_EUR = 0.16;
+var EUR_BRL = 1 / BRL_EUR;
+
+function convert() {
+    var amount = document.getElementById("amount").value;
+    var fromCurrency = document.getElementById("fromCurrency").value;
+    var toCurrency = document.getElementById("toCurrency").value;
+    var result;
+
+    // Conversão de moeda
+    if (fromCurrency === "USD" && toCurrency === "BRL") {
+        result = amount * USD_BRL;
+    } else if (fromCurrency === "BRL" && toCurrency === "USD") {
+        result = amount * BRL_USD;
+    } else if (fromCurrency === "USD" && toCurrency === "EUR") {
+        result = amount * USD_EUR;
+    } else if (fromCurrency === "EUR" && toCurrency === "USD") {
+        result = amount * EUR_USD;
+    } else if (fromCurrency === "BRL" && toCurrency === "EUR") {
+        result = amount * BRL_EUR;
+    } else if (fromCurrency === "EUR" && toCurrency === "BRL") {
+        result = amount * EUR_BRL;
+    } else {
+        result = amount; // Caso a moeda de origem e destino sejam iguais
+    }
+
+    // Exibindo o resultado
+    document.getElementById("result").innerText = `Resultado: ${result.toFixed(2)} ${toCurrency}`;
+}
+</script>
+
+</body>
+</html>
